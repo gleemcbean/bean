@@ -7,6 +7,7 @@ declare global {
 		documentationURL: string | null;
 		includePaths: string[];
 		blacklistedFilenames: string[];
+		ignoreTechs: string[];
 		weight: number;
 	}
 

@@ -54,17 +54,20 @@ export default function getGitStatus(repoPath: string): GitStatus {
 
 function walkFiles(root: string): string[] {
 	const results: string[] = [];
+
 	function walk(dir: string) {
 		const files = fs.readdirSync(dir);
 		for (const f of files) {
 			if (f === ".git") continue;
 			const full = path.join(dir, f);
+			if (!fs.existsSync(full)) continue;
 			const stat = fs.statSync(full);
 
 			if (stat.isDirectory()) walk(full);
 			else results.push(path.relative(root, full));
 		}
 	}
+
 	walk(root);
 	return results;
 }
@@ -78,21 +81,37 @@ function extractTrackedFiles(gitDir: string): string[] {
 
 	let offset = 12;
 
-	while (offset < buffer.length) {
+	while (true) {
+		if (offset + 62 > buffer.length) break;
 		offset += 40;
-
 		offset += 20;
 
+		if (offset + 2 > buffer.length) break;
 		const flags = buffer.readUInt16BE(offset);
 		offset += 2;
 
-		const nameLength = flags & 0x0fff;
+		let nameLength = flags & 0x0fff;
 
-		const name = buffer.slice(offset, offset + nameLength).toString();
+		if (nameLength === 0x0fff) {
+			let end = offset;
+
+			while (end < buffer.length && buffer[end] !== 0) {
+				end++;
+			}
+
+			if (end >= buffer.length) break;
+			nameLength = end - offset;
+		}
+
+		if (offset + nameLength > buffer.length) break;
+
+		const name = buffer.subarray(offset, offset + nameLength).toString();
 		entries.push(name);
 		offset += nameLength;
 
+		if (nameLength === 0x0fff) offset++;
 		while (offset % 8 !== 0) offset++;
+		if (buffer.length - offset <= 20) break;
 	}
 
 	return entries;
