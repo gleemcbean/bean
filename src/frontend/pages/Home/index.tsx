@@ -1,17 +1,66 @@
 import moment from "moment";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { FaGitAlt, FaRegFolderOpen } from "react-icons/fa";
+import { FiPlus } from "react-icons/fi";
+import { MdCreate } from "react-icons/md";
+import { VscVscode } from "react-icons/vsc";
+import { OpenProjectMode } from "../../../constants/Enum";
+import TechContainer from "../../components/TechContainer";
 import styles from "./page.module.scss";
 
 export default function Home() {
 	const [projects, setProjects] = useState<Program[]>([]);
+	const [projectMenuVisible, setProjectMenuVisible] = useState(false);
+
+	const menuRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
-		const fetchedProjects = window.electronAPI.projects();
-		setProjects(fetchedProjects);
+		window.electronAPI.getProjects().then((projects) => setProjects(projects));
+
+		function handleClick(event: MouseEvent) {
+			if (!menuRef.current.contains(event.target as Node)) {
+				setProjectMenuVisible(false);
+			}
+		}
+
+		document.addEventListener("mousedown", handleClick);
+		return () => document.removeEventListener("mousedown", handleClick);
 	}, []);
 
 	return (
-		<div>
+		<main className={styles.container}>
+			<div className={styles.toolbar}>
+				<form>
+					<input type="text" />
+					<button type="button">Search</button>
+				</form>
+				<div className={styles.addProject}>
+					<div>
+						<button
+							type="button"
+							className={styles.newProjectButton}
+							onClick={() => !projectMenuVisible && setProjectMenuVisible(true)}
+						>
+							<FiPlus />
+							<span>New project</span>
+						</button>
+					</div>
+					<div
+						className={styles.addProjectMenu}
+						aria-hidden={!projectMenuVisible}
+						ref={menuRef}
+					>
+						<button type="button" className={styles.menuButton}>
+							<MdCreate className={styles.createIcon} />
+							<span>Create a project</span>
+						</button>
+						<button type="button" className={styles.menuButton}>
+							<FaGitAlt className={styles.gitIcon} />
+							<span>Clone Git repo</span>
+						</button>
+					</div>
+				</div>
+			</div>
 			<ul className={styles.projects}>
 				{projects.map((project) => (
 					<li key={project.dirname} className={styles.project}>
@@ -21,46 +70,51 @@ export default function Home() {
 								{moment(project.lastEdited).format("ddd. D MMM. YYYY")}
 							</p>
 						</div>
-						<p className={styles.gitStatus}>Git: {project.gitStatus}</p>
+						{project.gitInfo && (
+							<a
+								className={styles.gitStatus}
+								data-gitstatus={project.gitInfo.status}
+								href={project.gitInfo.url}
+								target="_blank"
+							>
+								<FaGitAlt className={styles.gitIcon} />
+								<span>{project.gitInfo.status}</span>
+							</a>
+						)}
 						<div className={styles.projectFooter}>
-							<ul className={styles.techs}>
-								{project.technologies.map((tech, index) => (
-									<li key={tech.id} className={styles.tech}>
-										<a
-											href={tech.documentationURL}
-											target="_blank"
-											className={styles.techUrl}
-										>
-											<img
-												src={`/images/icons/${tech.id}.png`}
-												alt={tech.name}
-												className={styles.techIcon}
-											/>
-											{index === 0 && (
-												<p className={styles.techName}>{tech.name}</p>
-											)}
-										</a>
-									</li>
-								))}
-							</ul>
+							<TechContainer techs={project.technologies} />
 							<div className={styles.buttons}>
 								<button
 									type="button"
 									className={styles.revealFileExplorer}
 									onClick={() =>
-										window.electronAPI.revealProject(project.dirname)
+										window.electronAPI.openProject(
+											project.dirname,
+											OpenProjectMode.FILE_EXPLORER,
+										)
 									}
 								>
-									Reveal in file explorer
+									<FaRegFolderOpen className={styles.icon} />
+									<span>Open in file explorer</span>
 								</button>
-								<button type="button" className={styles.openVSCode}>
-									Open with Visual Studio Code
+								<button
+									type="button"
+									className={styles.openVSCode}
+									onClick={() =>
+										window.electronAPI.openProject(
+											project.dirname,
+											OpenProjectMode.IDE,
+										)
+									}
+								>
+									<VscVscode className={styles.icon} />
+									<span>Open to IDE</span>
 								</button>
 							</div>
 						</div>
 					</li>
 				))}
 			</ul>
-		</div>
+		</main>
 	);
 }

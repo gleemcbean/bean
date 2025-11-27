@@ -65,7 +65,7 @@ export default Object.freeze(
 			],
 			blacklistedFilenames: [".vite"],
 			ignoreTechs: [],
-			weight: 2,
+			weight: -1,
 		},
 		{
 			id: "reactnative",
@@ -118,6 +118,15 @@ export default Object.freeze(
 			blacklistedFilenames: [],
 			ignoreTechs: [],
 			weight: 2,
+		},
+		{
+			id: "java",
+			name: "Java",
+			documentationURL: "https://docs.oracle.com/",
+			includePaths: ["*.java"],
+			blacklistedFilenames: [],
+			ignoreTechs: [],
+			weight: 0,
 		},
 	].toSorted((a, b) => a.weight - b.weight),
 ) as readonly Technology[];

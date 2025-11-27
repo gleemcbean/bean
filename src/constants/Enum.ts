@@ -1,0 +1,15 @@
+export enum GitStatus {
+	CLEAN = "CLEAN",
+	MODIFIED = "MODIFIED",
+	STAGED = "STAGED",
+	UNTRACKED = "UNTRACKED",
+	MERGING = "MERGING",
+	REBASING = "REBASING",
+	DETACHED = "DETACHED",
+	UNKNOWN = "UNKNOWN",
+}
+
+export enum OpenProjectMode {
+	FILE_EXPLORER,
+	IDE,
+}

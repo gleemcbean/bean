@@ -1,4 +1,4 @@
-import type { GitStatus } from "../constants/Global";
+import type { GitStatus, OpenProjectMode } from "../constants/Global";
 
 declare global {
 	interface Technology {
@@ -16,13 +16,13 @@ declare global {
 		dirname: string;
 		technologies: Technology[];
 		lastEdited: string;
-		gitStatus: GitStatus;
+		gitInfo: { status: GitStatus; url: string | null } | null;
 	}
 
 	interface Window {
 		electronAPI: {
-			projects: () => Program[];
-			revealProject: (programName: string) => void;
+			getProjects: () => Promise<Program[]>;
+			openProject: (programName: string, mode: OpenProjectMode) => void;
 		};
 	}
 }

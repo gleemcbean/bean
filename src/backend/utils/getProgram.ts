@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { PROGRAMS_PATH } from "../../constants/Global";
 import Technologies from "../../constants/Technologies";
-import getGitStatus from "./getGitStatus";
+import getGitInfo from "./getGitInfo";
 
 function recLsDir(dirname: string, blacklist: Set<string>) {
 	const found: string[] = [];
@@ -22,12 +22,14 @@ function recLsDir(dirname: string, blacklist: Set<string>) {
 	return found;
 }
 
-export default function getFolderData(dirname: string): Program | null {
+export default async function getFolderData(
+	dirname: string,
+): Promise<Program | null> {
 	const _path = path.join(PROGRAMS_PATH, dirname);
 	if (!fs.existsSync(_path) || !fs.statSync(_path).isDirectory()) return null;
 
 	const lastEdited = fs.statSync(_path).mtime.toISOString();
-	const gitStatus = getGitStatus(_path);
+	const gitInfo = await getGitInfo(_path);
 	const technologies: Technology[] = [];
 	const blacklist = new Set<string>();
 
@@ -76,5 +78,5 @@ export default function getFolderData(dirname: string): Program | null {
 
 	technologies.reverse();
 
-	return { path: _path, dirname, technologies, lastEdited, gitStatus };
+	return { path: _path, dirname, technologies, lastEdited, gitInfo };
 }

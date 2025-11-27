@@ -1,136 +1,194 @@
 @use "sass:color" as color;
 
-.projects {
+@mixin button ($backgroundColor, $color, $borderColor: transparent) {
+  border-radius: 0.25rem;
+  padding-inline: 1rem;
+  height: 2rem;
+  background: $backgroundColor;
+  color: $color;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: 0.2s ease;
+  font-size: 0.8rem;
+  cursor: pointer;
+
+  @if $borderColor == transparent {
+    border: none;
+  } @else {
+    border: 1px solid $borderColor;
+  }
+
+  &:hover {
+    border-radius: 1rem;
+  }
+
+  .icon {
+    font-size: 1rem;
+  }
+}
+
+.container {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
   padding: 1rem;
+  gap: 1rem;
 
-  .project {
-    width: 100%;
-    padding: 1rem;
-    list-style: none;
+  .toolbar {
     display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    border: 1px solid #e0e0e0;
-    box-shadow: 0 0 5px #e0e0e0;
-    border-radius: 0.125rem;
+    justify-content: space-between;
 
-    .projectHeader{
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    .addProject {
+      position: relative;
 
-      .title {
-        color: #111111;
+      .newProjectButton {
+        @include button(#4934ea, #f9f8ff);
+
+        &:hover {
+          @include button(#3926ca, #f9f8ff);
+        }
       }
 
-      .date {
-        font-size: 0.8rem;
-        color: #808080;
-      }
-    }
-
-    .gitStatus {
-      background: #f1e5db;
-      color: #f07f1b;
-      font-weight: 500;
-      font-size: 0.8rem;
-      width: fit-content;
-      padding-inline: 0.75rem;
-      height: 1.75rem;
-      align-items: center;
-      display: flex;
-      border-radius: 0.875rem;
-    }
-
-    .projectFooter {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-
-      .techs {
+      .addProjectMenu {
+        position: absolute;
         display: flex;
-        gap: 0.25rem;
-        margin-top: 0.75rem;
+        flex-direction: column;
+        right: 0;
+        margin-top: 0.5rem;
+        border: 1px solid #e0e0e0;
+        box-shadow: 0 0 5px #e0e0e0;
+        border-radius: 0.5rem;
+        overflow: hidden;
+        transition: 0.2s ease;
+        transform: translateY(0);
 
-        .tech {
-          list-style: none;
+        .menuButton {
+          white-space: nowrap;
+          padding: 0.75rem;
+          background: #ffffff;
+          border: none;
+          font-size: 0.8rem;
+          color: #333333;
+          cursor: pointer;
+          transition: 0.2s ease;
           display: flex;
           align-items: center;
-          justify-content: center;
-          border: 1px solid #e0e0e0;
-          height: 1.75rem;
-          border-radius: 0.25rem;
-          transition: 0.2s ease;
+          justify-content: flex-start;
+          gap: 0.5rem;
 
-          &:first-child {
-            padding-inline: 0.5rem;
+          .createIcon, .gitIcon {
+            font-size: 1rem;
+            color: #999999;
+            transition: 0.2s ease;
           }
-
-          &:not(:first-child) {
-            width: 1.75rem;
-          }
-
+          
           &:hover {
-            background: #f0f0f0;
-            border-radius: 1rem;
-          }
+            background: #f5f5f5;
 
-          .techUrl {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-            color: unset;
-            text-decoration: none;
-
-            .techIcon {
-              object-fit: contain;
-              width: 1rem;
-              height: 1rem;
+            .createIcon {
+              color: #198e38;
             }
 
-            .techName {
-              font-size: 0.8rem;
-              color: #333333;
+            .gitIcon {
+              color: #ff4f2c;
             }
           }
+        }
+
+        &[aria-hidden="true"] {
+          opacity: 0; 
+          transform: translateY(-10px);
+        }
+      }
+    }
+  }
+
+  .projects {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .project {
+      width: 100%;
+      padding: 1rem;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      border: 1px solid #e0e0e0;
+      box-shadow: 0 0 5px #e0e0e0;
+      border-radius: 0.125rem;
+
+      .projectHeader{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .title {
+          color: #111111;
+        }
+
+        .date {
+          font-size: 0.8rem;
+          color: #808080;
         }
       }
 
-      .buttons {
+      .gitStatus {
+        font-weight: 500;
+        font-size: 0.7rem;
+        width: fit-content;
+        padding-inline: 0.5rem;
+        height: 1.5rem;
+        align-items: center;
         display: flex;
         gap: 0.5rem;
-        align-items: center;
-        justify-content: flex-end;
+        border-radius: 0.75rem;
+        text-decoration: none;
 
-        @mixin button ($backgroundColor, $color, $borderColor: transparent) {
-          border-radius: 0.125rem;
-          padding: 0.5rem 1rem;
-          background: $backgroundColor;
-          color: $color;
-          transition: 0.2s ease;
-          cursor: pointer;
-
-          @if $borderColor == transparent {
-            border: none;
-          } @else {
-            border: 1px solid $backgroundColor;
-          }
-
-          &:hover {
-            filter: brightness(90%);
-            border-radius: 1.25rem;
-          }
+        &[data-gitstatus="CLEAN"] {
+          background: #e2f3e5;
+          color: #50cb1b;
         }
 
-        .revealFileExplorer {
-          @include button(transparent, #444444, #e0e0e0);
+        &[data-gitstatus="MODIFIED"] {
+          background: #f3ebe2;
+          color: #cb8d1b;
         }
+      }
 
-        .openVSCode {
-          @include button(#4934ea, #f9f8ff);
+      .projectFooter {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+
+        .buttons {
+          display: flex;
+          gap: 0.5rem;
+          align-items: center;
+          justify-content: flex-end;
+
+          .revealFileExplorer {
+            @include button(transparent, #444444, #e0e0e0);
+
+            border-top-left-radius: 1rem;
+            border-bottom-left-radius: 1rem;
+
+            &:hover {
+              @include button(#fafafa, #222222, #e0e0e0);
+            }
+          }
+
+          .openVSCode {
+            @include button(#4934ea, #f9f8ff);
+
+            &:hover {
+              @include button(#3926ca, #f9f8ff);
+            }
+
+            border-top-right-radius: 1rem;
+            border-bottom-right-radius: 1rem;
+          }
         }
       }
     }
