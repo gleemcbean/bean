@@ -6,7 +6,6 @@ import {
 	VscClose,
 } from "react-icons/vsc";
 import { TitleBarAction } from "../../../constants/Enum";
-import Searchbar from "../Searchbar";
 import styles from "./component.module.scss";
 
 export default function TitleBar() {
@@ -14,7 +13,19 @@ export default function TitleBar() {
 
 	return (
 		<header className={styles.header}>
-			<Searchbar />
+			<div className={styles.leftContainer}>
+				<img
+					src="/images/favicon.png"
+					alt="Favicon"
+					className={styles.appIcon}
+				/>
+				<div className={styles.appTextInfo}>
+					<h1 className={styles.appName}>{window.electronAPI.appName}</h1>
+					<span className={styles.appVersion}>
+						(v{window.electronAPI.appVersion})
+					</span>
+				</div>
+			</div>
 			<div className={styles.titleBarButtons}>
 				<button
 					type="button"

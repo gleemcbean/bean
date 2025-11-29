@@ -1,0 +1,74 @@
+$color-accent: #4934ea;
+$color-accent-hover: #3926ca;
+$color-accent-text: #f9f8ff;
+
+$light-color-primary: #ffffff;
+$light-color-primary-hover: #f8f8f8;
+$light-color-secondary: #ffffff;
+$light-color-secondary-hover: #f8f8f8;
+$light-color-text-primary: #333333;
+$light-color-text-secondary: #666666;
+$light-color-text-tertiary: #999999;
+$light-color-border-primary: #c0c0c0;
+$light-color-shadow-primary: #e0e0e0;
+
+$dark-color-primary: #141414;
+$dark-color-primary-hover: #1b1b1b;
+$dark-color-secondary: #1a1a1a;
+$dark-color-secondary-hover: #202020;
+$dark-color-text-primary: #eeeeee;
+$dark-color-text-secondary: #bbbbbb;
+$dark-color-text-tertiary: #777777;
+$dark-color-border-primary: #343434;
+$dark-color-shadow-primary: #0a0a0a;
+
+@mixin light-theme {
+  --color-primary: #{$light-color-primary};
+  --color-primary-hover: #{$light-color-primary-hover};
+  --color-secondary: #{$light-color-secondary};
+  --color-secondary-hover: #{$light-color-secondary-hover};
+  --color-text-primary: #{$light-color-text-primary};
+  --color-text-secondary: #{$light-color-text-secondary};
+  --color-text-tertiary: #{$light-color-text-tertiary};
+  --color-border-primary: #{$light-color-border-primary};
+  --color-shadow-primary: #{$light-color-shadow-primary};
+}
+
+@mixin dark-theme {
+  --color-primary: #{$dark-color-primary};
+  --color-primary-hover: #{$dark-color-primary-hover};
+  --color-secondary: #{$dark-color-secondary};
+  --color-secondary-hover: #{$dark-color-secondary-hover};
+  --color-text-primary: #{$dark-color-text-primary};
+  --color-text-secondary: #{$dark-color-text-secondary};
+  --color-text-tertiary: #{$dark-color-text-tertiary};
+  --color-border-primary: #{$dark-color-border-primary};
+  --color-shadow-primary: #{$dark-color-shadow-primary};
+}
+
+:root {
+  --color-accent: #{$color-accent};
+  --color-accent-hover: #{$color-accent-hover};
+  --color-accent-text: #{$color-accent-text};
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    @include light-theme;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    @include dark-theme;
+  }
+}
+
+
+body[data-darktheme="off"] {
+  @include light-theme;
+}
+
+body[data-darktheme="on"] {
+  @include dark-theme;
+}

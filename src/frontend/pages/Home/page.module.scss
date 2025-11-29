@@ -33,19 +33,23 @@
   flex-direction: column;
   padding: 1rem;
   gap: 1rem;
+  max-width: 1000px;
+  width: 100%;
 
   .toolbar {
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
 
     .addProject {
       position: relative;
+      height: fit-content;
 
       .newProjectButton {
-        @include button(#4934ea, #f9f8ff);
+        @include button(var(--color-accent), var(--color-accent-text));
 
         &:hover {
-          @include button(#3926ca, #f9f8ff);
+          @include button(var(--color-accent-hover), var(--color-accent-text));
         }
       }
 
@@ -53,22 +57,24 @@
         position: absolute;
         display: flex;
         flex-direction: column;
-        right: 0;
+        left: 0;
         margin-top: 0.5rem;
-        border: 1px solid #e0e0e0;
-        box-shadow: 0 0 5px #e0e0e0;
+        border: 1px solid var(--color-border-primary);
+        box-shadow: 0 2px 5px var(--color-shadow-primary);
         border-radius: 0.5rem;
         overflow: hidden;
         transition: 0.2s ease;
         transform: translateY(0);
+        pointer-events: all;
 
         .menuButton {
           white-space: nowrap;
-          padding: 0.75rem;
-          background: #ffffff;
+          padding-inline: 0.75rem;
+          height: 2.2rem;
+          background: var(--color-primary);
+          color: var(--color-text-primary);
           border: none;
           font-size: 0.8rem;
-          color: #333333;
           cursor: pointer;
           transition: 0.2s ease;
           display: flex;
@@ -83,7 +89,7 @@
           }
           
           &:hover {
-            background: #f5f5f5;
+            background: var(--color-primary-hover);
 
             .createIcon {
               color: #198e38;
@@ -98,16 +104,76 @@
         &[aria-hidden="true"] {
           opacity: 0; 
           transform: translateY(-10px);
+          pointer-events: none;
         }
+      }
+    }
+
+    .displayStyle {
+      position: relative;
+      display: flex;
+      align-items: center;
+      height: fit-content;
+
+      .buttonWrapper {
+        display: flex;
+        align-items: center;
+
+        .choice {
+          display: grid;
+          place-items: center;
+          height: 2rem;
+          width: 2rem;
+          border: none;
+          background: none;
+          color: #444444;
+          border: 3px solid #444444;
+          cursor: pointer;
+          transition: 0.2s ease;
+
+          &:first-child {
+            border-top-left-radius: 0.25rem;
+            border-bottom-left-radius: 0.25rem;
+            border-right: none;
+          }
+
+          &:last-child {
+            border-top-right-radius: 0.25rem;
+            border-bottom-right-radius: 0.25rem;
+            border-left: none;
+          }
+        }
+      }
+
+      .selected {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 2rem;
+        height: 2rem;
+        background: #444444;
+        transition: 0.2s ease;
+        border-radius: 0.25rem;
+        pointer-events: none;
+        z-index: -1;
+
+        &[data-selectedidx="1"] {
+          left: 2rem;
+        }
+      }
+
+      &:has(.selected[data-selectedidx="0"]) .buttonWrapper .choice:first-child {
+        color: #ffffff;
+      }
+
+      &:has(.selected[data-selectedidx="1"]) .buttonWrapper .choice:last-child {
+        color: #ffffff;
       }
     }
   }
 
-  .projects {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-
+  .projectList, .projectGrid {
     .project {
       width: 100%;
       padding: 1rem;
@@ -115,22 +181,25 @@
       display: flex;
       flex-direction: column;
       gap: 0.75rem;
-      border: 1px solid #d8d8d8;
-      border-bottom-width: 4px;
-      border-radius: 0.125rem;
+      border: 1px solid var(--color-border-primary);
+      background: var(--color-secondary);
+      border-bottom-width: 0.25rem;
+      border-radius: 0.25rem;
+      transition: 0.2s ease;
 
-      .projectHeader{
+      .projectHeader {
         display: flex;
         align-items: center;
         justify-content: space-between;
 
         .title {
-          color: #111111;
+          color: var(--color-text-primary);
+          font-weight: 500;
         }
 
         .date {
-          font-size: 0.8rem;
-          color: #808080;
+          font-size: 0.7rem;
+          color: var(--color-text-tertiary);
         }
       }
 
@@ -145,15 +214,24 @@
         gap: 0.5rem;
         border-radius: 0.75rem;
         text-decoration: none;
+        transition: 0.2s ease;
 
         &[data-gitstatus="CLEAN"] {
-          background: #e2f3e5;
+          background: #50cb1b22;
           color: #50cb1b;
+
+          &:hover {
+            background: #50cb1b33;
+          }
         }
 
         &[data-gitstatus="MODIFIED"] {
-          background: #f3ebe2;
-          color: #cb8d1b;
+          background: #cb591b22;
+          color: #cb591b;
+
+          &:hover {
+            background: #cb591b33;
+          }
         }
       }
 
@@ -169,21 +247,21 @@
           justify-content: flex-end;
 
           .revealFileExplorer {
-            @include button(transparent, #444444, #e0e0e0);
+            @include button(var(--color-secondary), var(--color-text-secondary), var(--color-border-primary));
 
             border-top-left-radius: 1rem;
             border-bottom-left-radius: 1rem;
 
             &:hover {
-              @include button(#fafafa, #222222, #e0e0e0);
+              @include button(var(--color-secondary-hover), var(--color-text-secondary), var(--color-border-primary));
             }
           }
 
           .openVSCode {
-            @include button(#4934ea, #f9f8ff);
+            @include button(var(--color-accent), var(--color-accent-text));
 
             &:hover {
-              @include button(#3926ca, #f9f8ff);
+              @include button(var(--color-accent-hover), var(--color-accent-text));
             }
 
             border-top-right-radius: 1rem;
@@ -193,4 +271,55 @@
       }
     }
   }
+
+  .projectList {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .projectGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+
+    .project {
+      .projectHeader {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 100%;
+
+        .title {
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+
+      .projectFooter {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 1rem;
+        flex: 1;
+
+        .buttons {
+          margin-top: auto;
+          flex-direction: column;
+          width: 100%;
+
+          .revealFileExplorer, .openVSCode {
+            width: 100%;
+            border-radius: 0.25rem;
+            justify-content: center;
+          }
+        }
+      }
+    }
+  }
+}
+
+.modalTitle {
+  color: var(--color-text-primary);
+  font-weight: 500;
+  font-size: 1.5rem;
 }

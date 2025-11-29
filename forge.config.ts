@@ -10,13 +10,24 @@ import type { ForgeConfig } from "@electron-forge/shared-types";
 const config: ForgeConfig = {
 	packagerConfig: {
 		asar: true,
+		icon: "public/images/favicon.ico",
 	},
 	rebuildConfig: {},
 	makers: [
-		new MakerSquirrel({}),
+		new MakerSquirrel({
+			setupIcon: "public/images/favicon.ico",
+		}),
 		new MakerZIP({}, ["darwin"]),
-		new MakerRpm({}),
-		new MakerDeb({}),
+		new MakerRpm({
+			options: {
+				icon: "public/images/favicon.icns",
+			},
+		}),
+		new MakerDeb({
+			options: {
+				icon: "public/images/favicon.png",
+			},
+		}),
 	],
 	plugins: [
 		new VitePlugin({

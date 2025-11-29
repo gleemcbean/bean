@@ -8,7 +8,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--color-border-primary);
+    background: var(--color-secondary);
     height: 1.75rem;
     border-radius: 0.25rem;
     transition: 0.2s ease;
@@ -46,7 +47,7 @@
 
       .techName {
         font-size: 0.8rem;
-        color: #333333;
+        color: var(--color-text-secondary);
       }
 
       .techNameHover {
@@ -76,10 +77,9 @@
       }
     }
 
-    
-
     &:hover {
       border-radius: 1rem;
+      background: var(--color-secondary-hover);
 
       .techUrl .techNameHover {
         opacity: 1;

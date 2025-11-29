@@ -22,6 +22,9 @@ declare global {
 
 	interface Window {
 		electronAPI: {
+			appName: string;
+			appVersion: string;
+			theme: "dark" | "light";
 			getProjects: () => Promise<Program[]>;
 			openProject: (programName: string, mode: OpenProjectMode) => void;
 			titleBarAction: (action: TitleBarAction) => Promise<boolean>;

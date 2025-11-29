@@ -1,5 +1,5 @@
 import path from "node:path";
-import { app, BrowserWindow, ipcMain, ipcRenderer } from "electron";
+import { app, BrowserWindow, ipcMain } from "electron";
 import started from "electron-squirrel-startup";
 import { TitleBarAction } from "./constants/Enum";
 
@@ -12,6 +12,7 @@ const createWindow = () => {
 		width: 1080,
 		height: 720,
 		titleBarStyle: "hidden",
+		frame: false,
 		autoHideMenuBar: true,
 		webPreferences: {
 			contextIsolation: true,

@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import { contextBridge } from "electron";
+import packageJSON from "../package.json";
 import getProjects from "./backend/handlers/getProjects";
 import openProject from "./backend/handlers/openProject";
 import titleBarAction from "./backend/handlers/titleBarAction";
@@ -10,6 +11,9 @@ if (!fs.existsSync(PROGRAMS_PATH)) {
 }
 
 contextBridge.exposeInMainWorld("electronAPI", {
+	appName: packageJSON.productName,
+	appVersion: packageJSON.version,
+	theme: "dark",
 	getProjects,
 	openProject,
 	titleBarAction,

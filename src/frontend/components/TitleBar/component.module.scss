@@ -1,10 +1,45 @@
 .header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--color-border-primary);
+  width: 100%;
+  margin-bottom: 1rem;
+  -webkit-app-region: drag;
+
+  .leftContainer {
+    margin-left: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+
+    .appIcon {
+      height: 1.2rem;
+      width: 1.2rem;
+    }
+
+    .appTextInfo {
+      display: flex;
+      gap: 0.25rem;
+      align-items: baseline;
+
+      .appName {
+        font-weight: 400;
+        font-size: 0.9rem;
+        color: var(--color-text-primary);
+      }
+
+      .appVersion {
+        font-size: 0.6rem;
+        color: var(--color-text-secondary);
+      }
+    }
+  }
 
   .titleBarButtons {
     display: flex;
     height: 2rem;
+    -webkit-app-region: no-drag;
 
     .titleBarButton {
       padding-inline: 1rem;
@@ -13,11 +48,11 @@
       justify-content: center;
       border: none;
       background: transparent;
-      transition: 0.2s ease;
+      transition: 0.1s ease;
       position: relative;
       height: 100%;
       font-size: 1rem;
-      color: #333333aa;
+      color: var(--color-text-primary);
 
       &::before {
         content: "";
@@ -29,24 +64,28 @@
         height: 0;
         position: absolute;
         transition: width 0.1s ease, height 0.1s ease, border-radius 0.4s ease;
-        background: #ee3232;
         z-index: -1;
       }
 
+      &:nth-child(1)::before {
+        background: #2ebd335b;
+      }
+
+      &:nth-child(2)::before {
+        background: #1e71d05b;
+      }
+
+      &:nth-child(3)::before {
+        background: #e04949;
+      }
+
       &:hover {
-        &:not(:last-child) {
-          background: #f0f0f0;
-        }
+        color: #ffffff;
 
-        &:last-child {
-          color: #ffffff;
-          transition: 0.1s ease;
-
-          &::before {
-            border-radius: 0;
-            width: 100%;
-            height: 100%;
-          }
+        &::before {
+          border-radius: 0;
+          width: 100%;
+          height: 100%;
         }
       }
     }

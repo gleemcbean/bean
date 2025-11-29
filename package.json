@@ -1,7 +1,7 @@
 {
-	"name": "project-manager",
-	"productName": "project-manager",
-	"version": "1.0.0",
+	"name": "stacknest",
+	"productName": "StackNest",
+	"version": "0.0.1",
 	"description": "My Electron application description",
 	"main": ".vite/build/main.js",
 	"scripts": {

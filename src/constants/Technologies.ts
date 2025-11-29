@@ -128,5 +128,13 @@ export default Object.freeze(
 			ignoreTechs: [],
 			weight: 1,
 		},
+		{
+			id: "threejs",
+			name: "Three.js",
+			documentationURL: "https://threejs.org/docs/",
+			includePaths: ['package.json:"three"\\s*:\\s*"(?:\\^|~)?[0-9.]+"'],
+			ignoreTechs: [],
+			weight: -1,
+		},
 	].toSorted((a, b) => a.weight - b.weight),
 ) as readonly Technology[];
