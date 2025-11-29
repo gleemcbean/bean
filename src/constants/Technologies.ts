@@ -29,12 +29,9 @@ export default Object.freeze(
 			id: "threejs",
 			name: "Three.js",
 			documentationURL: "https://threejs.org/docs/",
-			includePaths: [
-				'package.json:"three"\\s*:\\s*"(?:\\^|~)?[0-9.]+"',
-			],
-			blacklistedFilenames: [],
-			ignoreTechs: ["html"],
-			weight: 3,
+			includePaths: ['package.json:"three"\\s*:\\s*"(?:\\^|~)?[0-9.]+"'],
+			ignoreTechs: [],
+			weight: -1,
 		},
 		{
 			id: "javascript",
