@@ -17,9 +17,9 @@ export default Object.freeze(
 			name: "React",
 			documentationURL: "https://reactjs.org/docs/getting-started.html",
 			includePaths: [
-				'package.json:"react"\\s*:\\s*"(?:\\^|~)?[0-9.]+"',
 				"*.jsx",
 				"*.tsx",
+				'package.json:"react"\\s*:\\s*"(?:\\^|~)?[0-9.]+"',
 			],
 			blacklistedFilenames: [],
 			ignoreTechs: ["html"],
@@ -85,8 +85,8 @@ export default Object.freeze(
 			name: "Expo",
 			documentationURL: "https://docs.expo.dev/",
 			includePaths: [
-				'package.json:"expo"\\s*:\\s*"(?:\\^|~)?[0-9.]+"',
 				".expo",
+				'package.json:"expo"\\s*:\\s*"(?:\\^|~)?[0-9.]+"',
 			],
 			blacklistedFilenames: [],
 			ignoreTechs: ["reactnative"],
@@ -142,9 +142,9 @@ export default Object.freeze(
 			name: "Sass",
 			documentationURL: "https://sass-lang.com/documentation/",
 			includePaths: [
-				'package.json:"sass"\\s*:\\s*"(?:\\^|~)?[0-9.]+"',
 				"*.sass",
 				"*.scss",
+				'package.json:"sass"\\s*:\\s*"(?:\\^|~)?[0-9.]+"',
 			],
 			blacklistedFilenames: [],
 			ignoreTechs: ["css"],
@@ -241,8 +241,8 @@ export default Object.freeze(
 			name: "Babel",
 			documentationURL: "https://babeljs.io/docs/",
 			includePaths: [
-				'package.json:"babel"\\s*:\\s*"(?:\\^|~)?[0-9.]+"',
 				".babelrc",
+				'package.json:"babel"\\s*:\\s*"(?:\\^|~)?[0-9.]+"',
 			],
 			blacklistedFilenames: [".babelrc"],
 			ignoreTechs: [],
@@ -277,22 +277,33 @@ export default Object.freeze(
 			weight: -1,
 		},
 
-		// Package Managers
-
-		// Nodejs
+		// interpreters
+		{
+			id: "deno",
+			name: "Deno",
+			documentationURL: "https://docs.deno.com/",
+			includePaths: [
+				"deno.json",
+				'package.json:"deno"\\s*:\\s*"(?:\\^|~)?[0-9.]+"',
+			],
+			blacklistedFilenames: [],
+			ignoreTechs: ["nodejs"],
+			weight: 1,
+		},
 		{
 			id: "bun",
 			name: "Bun",
 			documentationURL: "https://bun.com/docs/",
 			includePaths: [
-				'package.json:"bun"\\s*:\\s*"(?:\\^|~)?[0-9.]+"',
 				"bun.lock",
 				"bun.lockb",
+				'package.json:"bun"\\s*:\\s*"(?:\\^|~)?[0-9.]+"',
 			],
 			blacklistedFilenames: ["bun.lock", "bun.lockb"],
 			ignoreTechs: ["nodejs"],
 			weight: 1,
 		},
+		// Package Managers
 		{
 			id: "pnpm",
 			name: "pnpm",
