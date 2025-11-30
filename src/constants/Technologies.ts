@@ -30,6 +30,7 @@ export default Object.freeze(
 			name: "Three.js",
 			documentationURL: "https://threejs.org/docs/",
 			includePaths: ['package.json:"three"\\s*:\\s*"(?:\\^|~)?[0-9.]+"'],
+			blacklistedFilenames: [],
 			ignoreTechs: [],
 			weight: -1,
 		},
@@ -142,8 +143,8 @@ export default Object.freeze(
 			documentationURL: "https://sass-lang.com/documentation/",
 			includePaths: [
 				'package.json:"sass"\\s*:\\s*"(?:\\^|~)?[0-9.]+"',
-				"*.sass", 
-				"*.scss"
+				"*.sass",
+				"*.scss",
 			],
 			blacklistedFilenames: [],
 			ignoreTechs: ["css"],
@@ -198,16 +199,14 @@ export default Object.freeze(
 			id: "gsap",
 			name: "GSAP",
 			documentationURL: "https://gsap.com/docs/v3/",
-			includePaths: [
-				'package.json:"gsap"\\s*:\\s*"(?:\\^|~)?[0-9.]+"',
-			],
+			includePaths: ['package.json:"gsap"\\s*:\\s*"(?:\\^|~)?[0-9.]+"'],
 			blacklistedFilenames: [],
 			ignoreTechs: ["javascript"],
 			weight: 2,
 		},
 		// secondary technologies
 
-			// CI/CD
+		// CI/CD
 		{
 			id: "jenkins",
 			name: "Jenkins",
@@ -218,13 +217,13 @@ export default Object.freeze(
 			weight: -1,
 		},
 
-			// build tools
+		// build tools
 		{
 			id: "gradle",
 			name: "Gradle",
 			documentationURL: "https://docs.gradle.org/",
-			includePaths: ["gradlew","gradlew.bat","gradle"],
-			blacklistedFilenames: [".gradlew","gradlew.bat","gradle"],
+			includePaths: ["gradlew", "gradlew.bat", "gradle"],
+			blacklistedFilenames: [".gradlew", "gradlew.bat", "gradle"],
 			ignoreTechs: [],
 			weight: -1,
 		},
@@ -232,7 +231,7 @@ export default Object.freeze(
 			id: "maven",
 			name: "Maven",
 			documentationURL: "https://maven.apache.org/",
-			includePaths: ["mvnw*",".mvn"],
+			includePaths: ["mvnw*", ".mvn"],
 			blacklistedFilenames: [".mvnw"],
 			ignoreTechs: [],
 			weight: -1,
@@ -243,13 +242,13 @@ export default Object.freeze(
 			documentationURL: "https://babeljs.io/docs/",
 			includePaths: [
 				'package.json:"babel"\\s*:\\s*"(?:\\^|~)?[0-9.]+"',
-				".babelrc"
+				".babelrc",
 			],
 			blacklistedFilenames: [".babelrc"],
 			ignoreTechs: [],
 			weight: -1,
 		},
-			// web bundlers
+		// web bundlers
 		{
 			id: "vite",
 			name: "Vite",
@@ -279,8 +278,8 @@ export default Object.freeze(
 		},
 
 		// Package Managers
-		
-			// Nodejs
+
+		// Nodejs
 		{
 			id: "bun",
 			name: "Bun",
@@ -291,41 +290,34 @@ export default Object.freeze(
 				"bun.lockb",
 			],
 			blacklistedFilenames: ["bun.lock", "bun.lockb"],
-			ignoreTechs: ["javascript", "nodejs"],
+			ignoreTechs: ["nodejs"],
 			weight: 1,
 		},
 		{
 			id: "pnpm",
 			name: "pnpm",
 			documentationURL: "https://pnpm.io/motivation",
-			includePaths: [
-				"pnpm-lock.yaml",
-			],
-			blacklistedFilenames: ["pnpm-lock.yaml"],
-			ignoreTechs: ["javascript", "nodejs"],
+			includePaths: ["pnpm-lock.yaml"],
+			blacklistedFilenames: [],
+			ignoreTechs: [],
 			weight: 1,
 		},
 		{
 			id: "yarn",
 			name: "Yarn",
 			documentationURL: "https://classic.yarnpkg.com/en/docs",
-			includePaths: [
-				"yarn.lock",
-			],
-			blacklistedFilenames: ["yarn.lock"],
-			ignoreTechs: ["javascript", "nodejs"],
+			includePaths: ["yarn.lock"],
+			blacklistedFilenames: [],
+			ignoreTechs: [],
 			weight: 1,
 		},
 		{
 			id: "npm",
 			name: "npm",
 			documentationURL: "https://docs.npmjs.com/",
-			includePaths: [
-				'package.json:"npm"\\s*:\\s*"(?:\\^|~)?[0-9.]+"',
-				"package-lock.json",
-			],
+			includePaths: ["package-lock.json"],
 			blacklistedFilenames: ["package-lock.json"],
-			ignoreTechs: ["javascript", "nodejs"],
+			ignoreTechs: [],
 			weight: 1,
 		},
 	].toSorted((a, b) => a.weight - b.weight),
