@@ -277,7 +277,7 @@ export default Object.freeze(
 			weight: -1,
 		},
 
-		// interpreters
+		// Interpreters
 		{
 			id: "deno",
 			name: "Deno",
@@ -286,7 +286,7 @@ export default Object.freeze(
 				"deno.json",
 				'package.json:"deno"\\s*:\\s*"(?:\\^|~)?[0-9.]+"',
 			],
-			blacklistedFilenames: [],
+			blacklistedFilenames: ["deno.json"],
 			ignoreTechs: ["nodejs"],
 			weight: 1,
 		},
