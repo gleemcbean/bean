@@ -596,6 +596,32 @@ export default Object.freeze(
 			ignoreTechs: [],
 			weight: 2,
 		},
+		{
+			id: "clojure",
+			name: "Clojure",
+			documentationURL: "https://clojure.org/guides/getting_started",
+			includePaths: [
+				"*.clojure",
+				"*.clj",
+				"*.cljr",
+				"*.cljc",
+				"*.cljd",
+				"*.cljx",
+				"*.edn",
+			],
+			blacklistedFilenames: [],
+			ignoreTechs: [],
+			weight: 1,
+		},
+		{
+			id: "clojurescript",
+			name: "ClojureScript",
+			documentationURL: "https://clojurescript.org/guides/quick-start",
+			includePaths: ["*.cljs"],
+			blacklistedFilenames: [],
+			ignoreTechs: ["clojure"],
+			weight: 2,
+		},
 
 		// wraper
 
