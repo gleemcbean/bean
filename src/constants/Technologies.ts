@@ -553,6 +553,15 @@ export default Object.freeze(
 			ignoreTechs: [],
 			weight: 1,
 		},
+		{
+			id: "handlebars",
+			name: "Handlebars",
+			documentationURL: "https://handlebarsjs.com/guide/",
+			includePaths: ['package.json:"handlebars"\\s*:\\s*"(?:\\^|~)?[0-9.]+"'],
+			blacklistedFilenames: [],
+			ignoreTechs: ["javascript"],
+			weight: 2,
+		},
 		// secondary technologies
 
 		// CI/CD
