@@ -35,6 +35,18 @@ export default Object.freeze(
 			weight: -1,
 		},
 		{
+			id: "puppeteer",
+			name: "Puppeteer",
+			documentationURL: "https://pptr.dev/category/introduction",
+			includePaths: [
+				'package.json:"puppeteer"\\s*:\\s*"(?:\\^|~)?[0-9.]+"',
+				'package.json:"puppeteer_core"\\s*:\\s*"(?:\\^|~)?[0-9.]+"',
+			],
+			blacklistedFilenames: [],
+			ignoreTechs: [],
+			weight: -1,
+		},
+		{
 			id: "javascript",
 			name: "JavaScript",
 			documentationURL:
