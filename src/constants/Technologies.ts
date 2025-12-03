@@ -47,6 +47,15 @@ export default Object.freeze(
 			weight: -1,
 		},
 		{
+			id: "terraform",
+			name: "HashiCorp Terraform",
+			documentationURL: "https://developer.hashicorp.com/terraform/docs",
+			includePaths: ["*.tf"],
+			blacklistedFilenames: [],
+			ignoreTechs: [],
+			weight: 1,
+		},
+		{
 			id: "javascript",
 			name: "JavaScript",
 			documentationURL:
