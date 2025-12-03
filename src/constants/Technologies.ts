@@ -90,6 +90,15 @@ export default Object.freeze(
 			weight: 1,
 		},
 		{
+			id: "jupyter",
+			name: "Jupyter",
+			documentationURL: "https://docs.jupyter.org/",
+			includePaths: ["*.ipynb"],
+			blacklistedFilenames: [],
+			ignoreTechs: ["python"],
+			weight: 2,
+		},
+		{
 			id: "expressjs",
 			name: "Express.js",
 			documentationURL: "https://expressjs.com/",
